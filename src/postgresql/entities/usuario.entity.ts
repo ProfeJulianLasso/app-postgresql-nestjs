@@ -1,4 +1,12 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
+import { CasaDireccionEntity } from './casa-direccion.entity';
 import { ContactoEntity } from './contacto.entity';
 
 @Index('usuario_apellido_key', ['apellido'])
@@ -31,4 +39,13 @@ export class UsuarioEntity {
     cascade: ['insert'],
   })
   contactos: ContactoEntity[];
+
+  @OneToOne(
+    () => CasaDireccionEntity,
+    (casaDireccion) => casaDireccion.usuario,
+    {
+      cascade: ['insert'],
+    },
+  )
+  direccion: CasaDireccionEntity;
 }
