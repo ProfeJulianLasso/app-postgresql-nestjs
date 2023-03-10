@@ -1,4 +1,5 @@
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { ContactoEntity } from './contacto.entity';
 
 @Index('usuario_apellido_key', ['apellido'])
 @Index('usuario_nombre_key', ['nombre'])
@@ -25,4 +26,9 @@ export class UsuarioEntity {
 
   @Column('character varying', { name: 'password', length: 128, select: false })
   password: string;
+
+  @OneToMany(() => ContactoEntity, (contacto) => contacto.usuario, {
+    cascade: ['insert'],
+  })
+  contactos: ContactoEntity[];
 }

@@ -35,8 +35,9 @@ export class UsuarioRepository implements IBase<UsuarioEntity> {
     throw new Error('usuarioId not found');
   }
 
-  async findAll(): Promise<UsuarioEntity[]> {
-    return this.usersRepository.find();
+  async findAll(contacts?: boolean): Promise<UsuarioEntity[]> {
+    const options = contacts ? { relations: ['contactos'] } : {};
+    return this.usersRepository.find(options);
   }
 
   async findOneByUsuarioId(id: string): Promise<UsuarioEntity> {
