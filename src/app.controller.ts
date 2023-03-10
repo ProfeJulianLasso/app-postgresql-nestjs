@@ -1,12 +1,22 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { UsuarioEntity } from './postgresql/entities/usuario.entity';
+import { UsuarioService } from './postgresql/services/usuario.service';
 
-@Controller()
+@Controller('usuario')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly usuarioService: UsuarioService,
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('obtener-todos')
+  getAllUsurios(): Promise<UsuarioEntity[]> {
+    return this.usuarioService.buscarTodosLosUsuarios();
+  }
+
+  @Post()
+  createUsuario(@Body() usuario: UsuarioEntity): Promise<UsuarioEntity> {
+    return this.usuarioService.crearUsuario(usuario);
   }
 }

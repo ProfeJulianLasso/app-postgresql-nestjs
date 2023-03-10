@@ -1,0 +1,28 @@
+import { Column, Entity, Index } from 'typeorm';
+
+@Index('usuario_apellido_key', ['apellido'])
+@Index('usuario_nombre_key', ['nombre'])
+@Index('usuario_nombre_apellido_key', ['nombre', 'apellido'])
+@Index('usuario_email_key', ['email'], { unique: true })
+@Index('usuario_primary_key', ['usuarioId'], { unique: true })
+@Entity('usuario', { schema: 'public' })
+export class UsuarioEntity {
+  @Column('uuid', {
+    primary: true,
+    name: 'usuario_id',
+    default: () => 'uuid_generate_v4()',
+  })
+  usuarioId: string;
+
+  @Column('character varying', { name: 'nombre', length: 50 })
+  nombre: string;
+
+  @Column('character varying', { name: 'apellido', length: 50, nullable: true })
+  apellido: string;
+
+  @Column('character varying', { name: 'email', length: 500, unique: true })
+  email: string;
+
+  @Column('character varying', { name: 'password', length: 128, select: false })
+  password: string;
+}

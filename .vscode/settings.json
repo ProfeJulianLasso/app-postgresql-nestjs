@@ -1,4 +1,5 @@
 {
   "jest.autoRun": "off",
-  "iridium.npm.packageManager": "pnpm"
+  "iridium.npm.packageManager": "pnpm",
+  "cSpell.words": ["postgresql"]
 }

@@ -8,16 +8,19 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start": "set SCOPE=prod & nest start",
+    "start-win": "set SCOPE=prod & nest start",
+    "start:dev": "SCOPE=dev nest start --watch",
+    "start:dev-win": "set SCOPE=dev & nest start --watch",
+    "start:debug": "SCOPE=dev nest start --debug --watch",
+    "start:debug-win": "set SCOPE=dev & nest start --debug --watch",
+    "start:prod": "SCOPE=prod node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test": "SCOPE=test jest",
+    "test:watch": "SCOPE=test jest --watch",
+    "test:cov": "SCOPE=test jest --coverage",
+    "test:debug": "SCOPE=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "SCOPE=test jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^9.3.9",
