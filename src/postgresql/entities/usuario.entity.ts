@@ -2,12 +2,14 @@ import {
   Column,
   Entity,
   Index,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne,
 } from 'typeorm';
 import { CasaDireccionEntity } from './casa-direccion.entity';
 import { ContactoEntity } from './contacto.entity';
+import { RoleEntity } from './rol.entity';
 
 @Index('usuario_apellido_key', ['apellido'])
 @Index('usuario_nombre_key', ['nombre'])
@@ -48,4 +50,8 @@ export class UsuarioEntity {
     },
   )
   direccion: CasaDireccionEntity;
+
+  @ManyToMany(() => RoleEntity, (rol) => rol.usuarios, { cascade: ['insert'] })
+  @JoinTable()
+  roles: RoleEntity[];
 }

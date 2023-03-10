@@ -1,4 +1,5 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToMany } from 'typeorm';
+import { UsuarioEntity } from './usuario.entity';
 
 @Entity('rol', { schema: 'public' })
 export class RoleEntity {
@@ -11,4 +12,7 @@ export class RoleEntity {
 
   @Column('character varying', { name: 'nombre', length: 50 })
   nombre: string;
+
+  @ManyToMany(() => UsuarioEntity, (usuario) => usuario.roles)
+  usuarios: UsuarioEntity[];
 }
